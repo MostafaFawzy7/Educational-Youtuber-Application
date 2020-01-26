@@ -1,0 +1,32 @@
+<?php 
+function wpb_set_post_views($postID) {
+    $count_key = 'views';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count == ' '){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+
+function wpb_set_post_downloads($postID) {
+    $count_key = 'download';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count == ' '){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+
+//To keep the count accurate, lets get rid of prefetching
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+////
+
